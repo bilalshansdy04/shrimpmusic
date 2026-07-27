@@ -11,7 +11,6 @@ export component AppWindow inherits Window {
     height: 600px;
     background: #FFFFFF;
 
-    // Property untuk diisi dari Rust backend
     in-out property <[SongData]> recent-songs <=> home-page.recent-songs;
     VerticalLayout {
         padding-left: 15px;
@@ -20,7 +19,7 @@ export component AppWindow inherits Window {
         padding-bottom: 15px;
         spacing: 12px;
 
-        // Navbar + Main Content (side by side)
+        // Navbar & Main Content
         HorizontalLayout {
             spacing: 12px;
             vertical-stretch: 1;
