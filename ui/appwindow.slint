@@ -26,16 +26,45 @@ component NavButton inherits HorizontalLayout {
     }
 }
 
+component PlayerButton inherits Rectangle {
+    in property <image> icon;
+    in property <length> icon-width: 24px;
+    in property <length> icon-height: 24px;
+    callback clicked();
+
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    width: self.icon-width + 12px;
+    height: self.icon-height + 12px;
+    border-radius: 6px;
+    background: touch.has-hover ? rgba(0, 0, 0, 0.06) : transparent;
+    animate background { duration: 120ms; }
+
+    Image {
+        width: root.icon-width;
+        height: root.icon-height;
+        source: root.icon;
+        image-fit: contain;
+        x: (parent.width - self.width) / 2;
+        y: (parent.height - self.height) / 2;
+    }
+
+    touch := TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+}
+
 export component AppWindow inherits Window {
     title: "ShrimpMusic";
     icon: @image-url("assets/Logo.png");
-default-font-family: "Montserrat";
+    default-font-family: "Montserrat";
     width: 920px;
     height: 600px;
     background: #F2F2F2;
 
     in-out property <int> active-tab: 2; // Default tab (misal: 2 = Home)
-    
+
     VerticalLayout {
         padding-left: 15px;
         padding-top: 15px;
@@ -58,7 +87,7 @@ default-font-family: "Montserrat";
                     padding-bottom: 15px;
                     spacing: 5px;
                     alignment: space-between;
-        VerticalLayout {
+                    VerticalLayout {
                         spacing: 5px;
                         NavButton {
                             icon: @image-url("assets/Menu Button.svg");
@@ -103,17 +132,348 @@ default-font-family: "Montserrat";
                         clicked => { active-tab = 6; }
                     }
                 }
-        }
+            }
         // Main Content
-        HorizontalLayout {
-            
+        HorizontalLayout { }
         }
-     }
-    //  Media Player
-     VerticalLayout {
-        HorizontalLayout {
-            
+    // Media Player
+    VerticalLayout {
+            alignment: end;
+            Rectangle {
+                width: 890px;
+                height: 130px;
+                background: #FFFFFF;
+                border-radius: 15px;
+                border-width: 2px;
+                border-color: #d2d2d2;
+
+                VerticalLayout {
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    spacing: 15px;
+
+                    // Progress Bar & Time
+                HorizontalLayout {
+                        spacing: 12px;
+                        padding-left: 50px;
+                        padding-right: 50px;
+
+                        // Current Time
+                    Text {
+                            text: "0:00:27";
+                            color: #1a1a1a;
+                            font-size: 13px;
+                            vertical-alignment: center;
+                        }
+
+                        // Container Progress Bar
+                        Rectangle {
+                            horizontal-stretch: 1;
+                            height: 14px;
+                            in-out property <float> progress: 0.35;
+
+                            // Track
+                            Rectangle {
+                                width: 100%;
+                                height: 6px;
+                                y: (parent.height - self.height) / 2;
+                                background: #FFFFFF;
+                                border-radius: 3px;
+                                border-width: 1px;
+                                border-color: #D2D2D2;
+
+                                // Fill
+                                Rectangle {
+                                    x: 0px;
+                                    y: 0px;
+                                    width: parent.width * progress;
+                                    height: 100%;
+                                    background: #FF5500;
+                                    border-radius: 3px;
+                                }
+                            }
+
+                            // Knob (bulatan handle)
+                            Rectangle {
+                                width: 12px;
+                                height: 12px;
+                                border-radius: 6px;
+                                background: #FF5500;
+                                y: (parent.height - self.height) / 2;
+                                x: (parent.width - self.width) * progress;
+                            }
+
+                            progress-touch := TouchArea {
+                                mouse-cursor: pointer;
+                                moved => {
+                                    if self.pressed {
+                                        parent.progress = clamp(self.mouse-x / parent.width, 0, 1);
+                                    }
+                                }
+                                clicked => {
+                                    parent.progress = clamp(self.mouse-x / parent.width, 0, 1);
+                                }
+                            }
+                        }
+
+                        // Total Time
+                    Text {
+                            text: "0:00:27";
+                            color: #1a1a1a;
+                            font-size: 13px;
+                            vertical-alignment: center;
+                        }
+                    }
+
+                    // Playback Controls & Info
+                    Rectangle {
+                        height: 70px;
+
+                        // 1. Kolom Kiri — Info Lagu (fixed width, tidak mendorong kolom lain)
+                        HorizontalLayout {
+                            x: 0px;
+                            y: 0px;
+                            width: 280px;
+                            height: parent.height;
+                            spacing: 14px;
+                            alignment: start;
+
+                            Image {
+                                width: 70px;
+                                height: 70px;
+                                source: @image-url("assets/Music Unknown.png");
+                            }
+
+                            VerticalLayout {
+                                alignment: center;
+                                spacing: 4px;
+                                horizontal-stretch: 1;
+
+                                // Title Container — Marquee scroll kalau judul panjang
+                                Rectangle {
+                                    clip: true;
+                                    height: 26px;
+
+                                    property <length> title-text-width: title-text.preferred-width;
+                                    property <bool> is-overflowing: title-text-width > self.width;
+                                    property <length> scroll-distance: title-text-width + 50px;
+                                    in-out property <length> marquee-offset: 0px;
+
+                                    title-text := Text {
+                                        text: "Unknown Music";
+                                        font-weight: 600;
+                                        font-size: 15pt;
+                                        letter-spacing: -0.5px;
+                                        color: #000000;
+                                        y: 0px;
+                                        x: is-overflowing ? -parent.marquee-offset : 0px;
+                                    }
+
+                                    // Duplikat teks untuk efek loop seamless
+                                    Text {
+                                        visible: parent.is-overflowing;
+                                        text: title-text.text;
+                                        font-weight: 600;
+                                        font-size: 15pt;
+                                        letter-spacing: -0.5px;
+                                        color: #000000;
+                                        y: 0px;
+                                        x: title-text.x + parent.scroll-distance;
+                                    }
+
+                                    marquee-timer := Timer {
+                                        interval: 50ms;
+                                        running: parent.is-overflowing;
+                                        triggered => {
+                                            if parent.marquee-offset >= parent.scroll-distance {
+                                                parent.marquee-offset = 0px;
+                                            } else {
+                                                parent.marquee-offset += 1px;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Subtitle Container (Artist & Album)
+                                Rectangle {
+                                    clip: true;
+                                    height: 18px;
+
+                                    HorizontalLayout {
+                                        alignment: start;
+                                        spacing: 8px;
+
+                                        Text {
+                                            text: "Unknown Artist";
+                                            font-weight: 500;
+                                            font-size: 10pt;
+                                            letter-spacing: -0.5px;
+                                            color: #3D3D3D;
+                                            vertical-alignment: center;
+                                            overflow: elide;
+                                        }
+
+                                        VerticalLayout {
+                                            alignment: center;
+                                            Rectangle {
+                                                width: 4px;
+                                                height: 4px;
+                                                border-radius: 2px;
+                                                background: #3D3D3D;
+                                            }
+                                        }
+
+                                        Text {
+                                            text: "Unknown Album";
+                                            font-weight: 500;
+                                            font-size: 10pt;
+                                            letter-spacing: -0.5px;
+                                            color: #3D3D3D;
+                                            vertical-alignment: center;
+                                            overflow: elide;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // 2. Kolom Tengah — Playback Buttons (absolute center, tidak terpengaruh kolom kiri)
+                        VerticalLayout {
+                            width: 240px;
+                            height: parent.height;
+                            x: (parent.width - self.width) / 2;
+                            y: 0px;
+                            alignment: center;
+                            HorizontalLayout {
+                                spacing: 12px;
+                                alignment: center;
+
+                                PlayerButton {
+                                    icon: @image-url("assets/Shuffle Off.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/fast_rewind.svg");
+                                    icon-width: 24px;
+                                    icon-height: 24px;
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/Play.svg");
+                                    icon-width: 28px;
+                                    icon-height: 28px;
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/fast_forward.svg");
+                                    icon-width: 24px;
+                                    icon-height: 24px;
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/Loop Off.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+                            }
+                        }
+
+                        // 3. Kolom Kanan — Action Buttons (absolute right, tidak terpengaruh kolom kiri)
+                        VerticalLayout {
+                            width: 250px;
+                            height: parent.height;
+                            x: parent.width - self.width;
+                            y: 0px;
+                            alignment: center;
+                            HorizontalLayout {
+                                spacing: 8px;
+                                alignment: end;
+
+                                PlayerButton {
+                                    icon: @image-url("assets/Lyrics.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+
+                                // Volume Icon
+                                PlayerButton {
+                                    icon: @image-url("assets/Volume.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+
+                                // Volume Slider
+                                VerticalLayout {
+                                    alignment: center;
+                                    Rectangle {
+                                        width: 80px;
+                                        height: 22px;
+                                        vertical-stretch: 0;
+                                        in-out property <float> volume: 0.7;
+
+                                        // Track
+                                    Rectangle {
+                                            width: 100%;
+                                            height: 4px;
+                                            y: (parent.height - self.height) / 2;
+                                            background: #D2D2D2;
+                                            border-radius: 2px;
+
+                                            // Fill
+                                        Rectangle {
+                                                x: 0px;
+                                                y: 0px;
+                                                width: parent.width * volume;
+                                                height: 100%;
+                                                background: #FF5500;
+                                                border-radius: 2px;
+                                            }
+                                        }
+
+                                        // Knob
+                                    Rectangle {
+                                            width: 10px;
+                                            height: 10px;
+                                            border-radius: 5px;
+                                            background: #FF5500;
+                                            y: (parent.height - self.height) / 2;
+                                            x: (parent.width - self.width) * volume;
+                                        }
+
+                                        vol-touch := TouchArea {
+                                            mouse-cursor: pointer;
+                                            moved => {
+                                                if self.pressed {
+                                                    parent.volume = clamp(self.mouse-x / parent.width, 0, 1);
+                                                }
+                                            }
+                                            clicked => {
+                                                parent.volume = clamp(self.mouse-x / parent.width, 0, 1);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/Queue.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+
+                                PlayerButton {
+                                    icon: @image-url("assets/More.svg");
+                                    icon-width: 22px;
+                                    icon-height: 22px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-     }   
     }
 }
