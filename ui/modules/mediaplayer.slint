@@ -1,0 +1,372 @@
+// PlayerButton — Tombol kecil dengan icon dan hover effect
+component PlayerButton inherits Rectangle {
+    in property <image> icon;
+    in property <length> icon-width: 24px;
+    in property <length> icon-height: 24px;
+    callback clicked();
+
+    horizontal-stretch: 0;
+    vertical-stretch: 0;
+    width: self.icon-width + 12px;
+    height: self.icon-height + 12px;
+    border-radius: 6px;
+    background: touch.has-hover ? rgba(0, 0, 0, 0.06) : transparent;
+    animate background { duration: 120ms; }
+
+    Image {
+        width: root.icon-width;
+        height: root.icon-height;
+        source: root.icon;
+        image-fit: contain;
+        x: (parent.width - self.width) / 2;
+        y: (parent.height - self.height) / 2;
+    }
+
+    touch := TouchArea {
+        mouse-cursor: pointer;
+        clicked => { root.clicked(); }
+    }
+}
+
+// MediaPlayer — Card media player lengkap (progress bar, info lagu, playback controls, volume)
+export component MediaPlayer inherits VerticalLayout {
+    alignment: end;
+
+    Rectangle {
+        width: 890px;
+        height: 130px;
+        background: #FFFFFF;
+        border-radius: 15px;
+        border-width: 2px;
+        border-color: #d2d2d2;
+
+        VerticalLayout {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            spacing: 15px;
+
+            // Progress Bar & Time
+            HorizontalLayout {
+                spacing: 12px;
+                padding-left: 50px;
+                padding-right: 50px;
+
+                // Current Time
+                Text {
+                    text: "0:00:27";
+                    color: #1a1a1a;
+                    font-size: 13px;
+                    vertical-alignment: center;
+                }
+
+                // Container Progress Bar
+                Rectangle {
+                    horizontal-stretch: 1;
+                    height: 14px;
+                    in-out property <float> progress: 0.35;
+
+                    // Track
+                    Rectangle {
+                        width: 100%;
+                        height: 6px;
+                        y: (parent.height - self.height) / 2;
+                        background: #FFFFFF;
+                        border-radius: 3px;
+                        border-width: 1px;
+                        border-color: #D2D2D2;
+
+                        // Fill
+                        Rectangle {
+                            x: 0px;
+                            y: 0px;
+                            width: parent.width * progress;
+                            height: 100%;
+                            background: #FF5500;
+                            border-radius: 3px;
+                        }
+                    }
+
+                    // Knob (bulatan handle)
+                    Rectangle {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 6px;
+                        background: #FF5500;
+                        y: (parent.height - self.height) / 2;
+                        x: (parent.width - self.width) * progress;
+                    }
+
+                    progress-touch := TouchArea {
+                        mouse-cursor: pointer;
+                        moved => {
+                            if self.pressed {
+                                parent.progress = clamp(self.mouse-x / parent.width, 0, 1);
+                            }
+                        }
+                        clicked => {
+                            parent.progress = clamp(self.mouse-x / parent.width, 0, 1);
+                        }
+                    }
+                }
+
+                // Total Time
+                Text {
+                    text: "0:00:27";
+                    color: #1a1a1a;
+                    font-size: 13px;
+                    vertical-alignment: center;
+                }
+            }
+
+            // Playback Controls & Info (Absolute positioning)
+            Rectangle {
+                height: 70px;
+                // 1. Music Container (Album Art, Title, Artist, Album)
+                HorizontalLayout {
+                    x: 0px;
+                    y: 0px;
+                    width: 280px;
+                    height: parent.height;
+                    spacing: 14px;
+                    alignment: start;
+                    // Album Art
+                    Image {
+                        width: 70px;
+                        height: 70px;
+                        source: @image-url("../assets/Music Unknown.png");
+                    }
+
+                    VerticalLayout {
+                        alignment: center;
+                        spacing: 4px;
+                        horizontal-stretch: 1;
+
+                        // Title Container
+                        Rectangle {
+                            clip: true;
+                            height: 26px;
+
+                            property <length> title-text-width: title-text.preferred-width;
+                            property <bool> is-overflowing: title-text-width > self.width;
+                            property <length> scroll-distance: title-text-width + 50px;
+                            in-out property <length> marquee-offset: 0px;
+                            // Title
+                            title-text := Text {
+                                text: "Unknown Music";
+                                font-weight: 600;
+                                font-size: 15pt;
+                                letter-spacing: -0.5px;
+                                color: #000000;
+                                y: 0px;
+                                x: is-overflowing ? -parent.marquee-offset : 0px;
+                            }
+
+                            // overflow text
+                            Text {
+                                visible: parent.is-overflowing;
+                                text: title-text.text;
+                                font-weight: 600;
+                                font-size: 15pt;
+                                letter-spacing: -0.5px;
+                                color: #000000;
+                                y: 0px;
+                                x: title-text.x + parent.scroll-distance;
+                            }
+
+                            marquee-timer := Timer {
+                                interval: 50ms;
+                                running: parent.is-overflowing;
+                                triggered => {
+                                    if parent.marquee-offset >= parent.scroll-distance {
+                                        parent.marquee-offset = 0px;
+                                    } else {
+                                        parent.marquee-offset += 1px;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Subtitle Container (Artist & Album)
+                        Rectangle {
+                            clip: true;
+                            height: 18px;
+
+                            HorizontalLayout {
+                                alignment: start;
+                                spacing: 8px;
+
+                                Text {
+                                    text: "Unknown Artist";
+                                    font-weight: 500;
+                                    font-size: 10pt;
+                                    letter-spacing: -0.5px;
+                                    color: #3D3D3D;
+                                    vertical-alignment: center;
+                                    overflow: elide;
+                                }
+
+                                VerticalLayout {
+                                    alignment: center;
+                                    Rectangle {
+                                        width: 4px;
+                                        height: 4px;
+                                        border-radius: 2px;
+                                        background: #3D3D3D;
+                                    }
+                                }
+
+                                Text {
+                                    text: "Unknown Album";
+                                    font-weight: 500;
+                                    font-size: 10pt;
+                                    letter-spacing: -0.5px;
+                                    color: #3D3D3D;
+                                    vertical-alignment: center;
+                                    overflow: elide;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 2. Playback Container
+                VerticalLayout {
+                    width: 240px;
+                    height: parent.height;
+                    x: (parent.width - self.width) / 2;
+                    y: 0px;
+                    alignment: center;
+
+                    HorizontalLayout {
+                        spacing: 12px;
+                        alignment: center;
+
+                        PlayerButton {
+                            icon: @image-url("../assets/Shuffle Off.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+
+                        PlayerButton {
+                            icon: @image-url("../assets/fast_rewind.svg");
+                            icon-width: 24px;
+                            icon-height: 24px;
+                        }
+
+                        PlayerButton {
+                            icon: @image-url("../assets/Play.svg");
+                            icon-width: 28px;
+                            icon-height: 28px;
+                        }
+
+                        PlayerButton {
+                            icon: @image-url("../assets/fast_forward.svg");
+                            icon-width: 24px;
+                            icon-height: 24px;
+                        }
+
+                        PlayerButton {
+                            icon: @image-url("../assets/Loop Off.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+                    }
+                }
+
+                // 3. Action Buttons
+                VerticalLayout {
+                    width: 250px;
+                    height: parent.height;
+                    x: parent.width - self.width;
+                    y: 0px;
+                    alignment: center;
+
+                    HorizontalLayout {
+                        spacing: 8px;
+                        alignment: end;
+                        // Lyrics Button
+                        PlayerButton {
+                            icon: @image-url("../assets/Lyrics.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+
+                        // Volume Button
+                        PlayerButton {
+                            icon: @image-url("../assets/Volume.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+
+                        // Volume Slider
+                        VerticalLayout {
+                            alignment: center;
+
+                            Rectangle {
+                                width: 80px;
+                                height: 22px;
+                                vertical-stretch: 0;
+                                in-out property <float> volume: 0.7;
+
+                                // Track
+                                Rectangle {
+                                    width: 100%;
+                                    height: 4px;
+                                    y: (parent.height - self.height) / 2;
+                                    background: #D2D2D2;
+                                    border-radius: 2px;
+
+                                    // Fill
+                                    Rectangle {
+                                        x: 0px;
+                                        y: 0px;
+                                        width: parent.width * volume;
+                                        height: 100%;
+                                        background: #FF5500;
+                                        border-radius: 2px;
+                                    }
+                                }
+
+                                // Knob
+                                Rectangle {
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 5px;
+                                    background: #FF5500;
+                                    y: (parent.height - self.height) / 2;
+                                    x: (parent.width - self.width) * volume;
+                                }
+
+                                vol-touch := TouchArea {
+                                    mouse-cursor: pointer;
+                                    moved => {
+                                        if self.pressed {
+                                            parent.volume = clamp(self.mouse-x / parent.width, 0, 1);
+                                        }
+                                    }
+                                    clicked => {
+                                        parent.volume = clamp(self.mouse-x / parent.width, 0, 1);
+                                    }
+                                }
+                            }
+                        }
+                        // Queue Button
+                        PlayerButton {
+                            icon: @image-url("../assets/Queue.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+                        // More Option Button
+                        PlayerButton {
+                            icon: @image-url("../assets/More.svg");
+                            icon-width: 22px;
+                            icon-height: 22px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

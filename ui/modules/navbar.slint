@@ -1,0 +1,89 @@
+component NavButton inherits HorizontalLayout {
+    in property <image> icon;
+    in property <bool> active: false;
+    callback clicked();
+
+    alignment: center;
+
+    Rectangle {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: touch.has-hover || root.active ? #ffffff : transparent;
+        animate background { duration: 150ms; }
+
+        Image {
+            width: 40px;
+            height: 40px;
+            source: root.icon;
+        }
+
+        touch := TouchArea {
+            clicked => { root.clicked(); }
+        }
+    }
+}
+export component Navbar inherits VerticalLayout {
+    alignment: end;
+    in-out property <int> active-tab: 2;
+    Rectangle {
+                width: 60px;
+                height: 430px;
+                background: #F2F2F2;
+                border-radius: 15px;
+                border-width: 2px;
+                border-color: #d2d2d2;
+
+                VerticalLayout {
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                    spacing: 5px;
+                    alignment: space-between;
+                    VerticalLayout {
+                        spacing: 5px;
+                        // Sidebar Button
+                        NavButton {
+                            icon: @image-url("../assets/Menu Button.svg");
+                            active: active-tab == 0;
+                            clicked => { active-tab = 0; }
+                        }
+                        // Search Button
+                        NavButton {
+                            icon: @image-url("../assets/Search Button.svg");
+                            active: active-tab == 1;
+                            clicked => { active-tab = 1; }
+                        }
+                        // Home Button
+                        NavButton {
+                            icon: @image-url("../assets/Home Button.svg");
+                            active: active-tab == 2;
+                            clicked => { active-tab = 2; }
+                        }
+                        // Music Button
+                        NavButton {
+                            icon: @image-url("../assets/Music Library Button.svg");
+                            active: active-tab == 3;
+                            clicked => { active-tab = 3; }
+                        }
+                        // Favorite Button
+                        NavButton {
+                            icon: @image-url("../assets/Favorite Button.svg");
+                            active: active-tab == 4;
+                            clicked => { active-tab = 4; }
+                        }
+                        // Playlist Button
+                        NavButton {
+                            icon: @image-url("../assets/Playlist Button.svg");
+                            active: active-tab == 5;
+                            clicked => { active-tab = 5; }
+                        }
+                    }
+                    // Setting Button
+                    NavButton {
+                        icon: @image-url("../assets/Settings Button.svg");
+                        active: active-tab == 6;
+                        clicked => { active-tab = 6; }
+                    }
+                }
+            }
+}
