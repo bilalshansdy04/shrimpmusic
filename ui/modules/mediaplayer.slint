@@ -88,16 +88,6 @@ export component MediaPlayer inherits VerticalLayout {
                         }
                     }
 
-                    // Knob (bulatan handle)
-                    Rectangle {
-                        width: 12px;
-                        height: 12px;
-                        border-radius: 6px;
-                        background: #FF5500;
-                        y: (parent.height - self.height) / 2;
-                        x: (parent.width - self.width) * progress;
-                    }
-
                     progress-touch := TouchArea {
                         mouse-cursor: pointer;
                         moved => {
@@ -315,8 +305,10 @@ export component MediaPlayer inherits VerticalLayout {
                                     width: 100%;
                                     height: 4px;
                                     y: (parent.height - self.height) / 2;
-                                    background: #D2D2D2;
+                                    background: #ffffff;
                                     border-radius: 2px;
+                                    border-width: 1px;
+                                    border-color: #D2D2D2;
 
                                     // Fill
                                     Rectangle {
@@ -327,16 +319,6 @@ export component MediaPlayer inherits VerticalLayout {
                                         background: #FF5500;
                                         border-radius: 2px;
                                     }
-                                }
-
-                                // Knob
-                                Rectangle {
-                                    width: 10px;
-                                    height: 10px;
-                                    border-radius: 5px;
-                                    background: #FF5500;
-                                    y: (parent.height - self.height) / 2;
-                                    x: (parent.width - self.width) * volume;
                                 }
 
                                 vol-touch := TouchArea {
