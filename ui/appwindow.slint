@@ -1,6 +1,7 @@
 import "./assets/fonts/Montserrat-VariableFont_wght.ttf";
 import { MediaPlayer } from "./modules/mediaplayer.slint";
 import { Navbar } from "./modules/navbar.slint";
+import { HomePage, SongData } from "./pages/home.slint";
 
 export component AppWindow inherits Window {
     title: "ShrimpMusic";
@@ -10,23 +11,26 @@ export component AppWindow inherits Window {
     height: 600px;
     background: #FFFFFF;
 
-     // Default tab (misal: 2 = Home)
-
+    // Property untuk diisi dari Rust backend
+    in-out property <[SongData]> recent-songs <=> home-page.recent-songs;
     VerticalLayout {
         padding-left: 15px;
         padding-top: 15px;
         padding-right: 15px;
         padding-bottom: 15px;
-
         spacing: 12px;
-        // Navbar
-        Navbar{}
 
+        // Navbar + Main Content (side by side)
         HorizontalLayout {
-        // Main Content
-        HorizontalLayout { }
+            spacing: 12px;
+            vertical-stretch: 1;
+
+            Navbar { }
+
+            home-page := HomePage { }
         }
-        // Media Player
-        MediaPlayer {}
+
+        // Media Player (bottom)
+        MediaPlayer { }
     }
 }

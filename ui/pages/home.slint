@@ -1,0 +1,128 @@
+// Data model untuk satu lagu
+export struct SongData {
+    title: string,
+    artist: string,
+    album-art: image,
+}
+
+// MusicCard — Card album art + title + artist
+component MusicCard inherits VerticalLayout {
+    in property <SongData> song;
+    callback clicked();
+
+    spacing: 2px;
+
+    // Album Art Container
+    Rectangle {
+        width: 130px;
+        height: 130px;
+        border-radius: 10px;
+        clip: true;
+        background: #F0F0F0;
+
+        Image {
+            width: 100%;
+            height: 100%;
+            source: root.song.album-art;
+            image-fit: cover;
+        }
+
+        // Hover overlay
+        Rectangle {
+            width: 100%;
+            height: 100%;
+            background: touch.has-hover ? rgba(0, 0, 0, 0.06) : transparent;
+            animate background { duration: 150ms; }
+        }
+
+        touch := TouchArea {
+            mouse-cursor: pointer;
+            clicked => { root.clicked(); }
+        }
+    }
+
+    // Title
+    Text {
+        text: root.song.title;
+        font-weight: 600;
+        font-size: 10pt;
+        letter-spacing: -0.3px;
+        color: #1a1a1a;
+        overflow: elide;
+        width: 130px;
+    }
+
+    // Artist
+    Text {
+        text: root.song.artist;
+        font-weight: 500;
+        font-size: 8pt;
+        letter-spacing: -0.2px;
+        color: #6b6b6b;
+        overflow: elide;
+        width: 130px;
+    }
+}
+
+// HomePage — Halaman utama dengan grid music cards dari model array
+export component HomePage inherits VerticalLayout {
+    // Model data dari backend (Rust), default 15 item unknown
+    in property <[SongData]> recent-songs: [
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
+    ];
+
+    padding-left: 25px;
+    padding-right: 15px;
+    padding-top: 10px;
+
+    // Header
+    Text {
+        text: "Home";
+        font-weight: 700;
+        font-size: 26pt;
+        letter-spacing: -1px;
+        color: #1a1a1a;
+    }
+
+    // Section: Recent Played
+    VerticalLayout {
+        spacing: 16px;
+        padding-top: 8px;
+
+        Text {
+            text: "Recent Played";
+            font-weight: 600;
+            font-size: 13pt;
+            letter-spacing: -0.3px;
+            color: #3d3d3d;
+        }
+
+        // Scrollable grid area
+        Flickable {
+            GridLayout {
+                spacing: 20px;
+
+                // Loop: setiap item di-render sebagai MusicCard dalam grid (5 kolom per baris)
+                for song[index] in recent-songs: MusicCard {
+                    row: Math.floor(index / 5);
+                    col: Math.mod(index, 5);
+                    song: song;
+                }
+            }
+        }
+    }
+}
