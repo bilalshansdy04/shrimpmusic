@@ -66,24 +66,8 @@ component MusicCard inherits VerticalLayout {
 
 // HomePage — Halaman utama dengan grid music cards dari model array
 export component HomePage inherits VerticalLayout {
-    // Model data dari backend (Rust), default 15 item unknown
-    in property <[SongData]> recent-songs: [
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("../assets/Music Unknown.png") },
-    ];
+    // Model data dari backend (Rust)
+    in property <[SongData]> recent-songs;
 
     padding-left: 25px;
     padding-right: 15px;

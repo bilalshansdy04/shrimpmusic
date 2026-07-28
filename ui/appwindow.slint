@@ -3,6 +3,8 @@ import { MediaPlayer } from "./modules/mediaplayer.slint";
 import { Navbar } from "./modules/navbar.slint";
 import { HomePage, SongData } from "./pages/home.slint";
 
+import { NotFoundPage } from "./pages/not_found.slint";
+
 export component AppWindow inherits Window {
     title: "ShrimpMusic";
     icon: @image-url("assets/Logo.png");
@@ -11,7 +13,23 @@ export component AppWindow inherits Window {
     height: 600px;
     background: #FFFFFF;
 
-    in-out property <[SongData]> recent-songs <=> home-page.recent-songs;
+    in-out property <[SongData]> recent-songs: [
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+        { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
+    ];
     VerticalLayout {
         padding-left: 15px;
         padding-top: 15px;
@@ -24,9 +42,14 @@ export component AppWindow inherits Window {
             spacing: 12px;
             vertical-stretch: 1;
 
-            Navbar { }
+            navbar := Navbar { }
 
-            home-page := HomePage { }
+            if (navbar.active-tab == 2) : home-page := HomePage {
+                recent-songs: root.recent-songs;
+            }
+            if (navbar.active-tab != 2) : NotFoundPage {
+                go-home => { navbar.active-tab = 2; }
+            }
         }
 
         // Media Player (bottom)

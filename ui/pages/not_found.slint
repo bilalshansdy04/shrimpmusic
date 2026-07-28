@@ -1,0 +1,66 @@
+export component NotFoundPage inherits VerticalLayout {
+    callback go-home();
+
+    padding-left: 25px;
+    padding-right: 15px;
+    padding-top: 10px;
+
+    // Header
+    Text {
+        text: "404 Not Found";
+        font-weight: 700;
+        font-size: 26pt;
+        letter-spacing: -1px;
+        color: #1a1a1a;
+    }
+
+    // Main 404 state container
+    VerticalLayout {
+        vertical-stretch: 1;
+        alignment: center;
+
+        HorizontalLayout {
+            alignment: center;
+
+            Rectangle {
+                width: 460px;
+                background: #FAF8F8;
+                border-radius: 16px;
+                border-width: 1px;
+                border-color: #EBE2E2;
+
+                VerticalLayout {
+                    alignment: center;
+                    spacing: 12px;
+                    padding: 32px;
+
+                    Text {
+                        text: "404";
+                        font-weight: 800;
+                        font-size: 28pt;
+                        letter-spacing: -1px;
+                        color: #C9B2B2;
+                        horizontal-alignment: center;
+                    }
+
+                    Text {
+                        text: "Halaman Tidak Ditemukan";
+                        font-weight: 700;
+                        font-size: 15pt;
+                        color: #2D2D2D;
+                        horizontal-alignment: center;
+                    }
+
+                    Text {
+                        text: "Maaf, halaman atau fitur untuk menu ini belum tersedia atau masih dalam proses pembuatan.";
+                        font-weight: 500;
+                        font-size: 9.5pt;
+                        color: #6B6B6B;
+                        horizontal-alignment: center;
+                        wrap: word-wrap;
+                    }
+                }
+            }
+        }
+    }
+}
