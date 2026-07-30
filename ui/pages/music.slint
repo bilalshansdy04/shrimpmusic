@@ -267,36 +267,142 @@ export component MusicPage inherits HorizontalLayout {
 
     // ---- Data: Track list ----
     in property <[MusicTrackData]> tracks: [
-        { number: "1", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "2", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "3", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "4", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "5", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "6", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "7", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "8", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
+        {
+            number: "1",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "2",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "3",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "4",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "5",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "6",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "7",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "8",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
     ];
 
     // ---- Data: Queue tracks ----
     in property <[MusicTrackData]> queue-tracks: [
-        { number: "1", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "2", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "3", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "4", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "5", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
-        { number: "6", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next", duration: "2:52", album-art: @image-url("../assets/Music Unknown.png") },
+        {
+            number: "1",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "2",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "3",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "4",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "5",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
+        {
+            number: "6",
+            title: "thank u, next",
+            artist: "Ariana Grande",
+            album: "thank u, next",
+            duration: "2:52",
+            album-art: @image-url("../assets/Music Unknown.png")
+        },
     ];
 
     // ---- Data: Now playing ----
     in property <MusicTrackData> now-playing: {
-        number: "0", title: "Magnetic", artist: "ILLIT", album: "SUPER REAL ME",
-        duration: "3:27", album-art: @image-url("../assets/Music Unknown.png")
+        number: "0",
+        title: "Magnetic",
+        artist: "ILLIT",
+        album: "SUPER REAL ME",
+        duration: "3:27",
+        album-art: @image-url("../assets/Music Unknown.png")
     };
 
     // ---- Data: Next in queue ----
     in property <MusicTrackData> next-in-queue: {
-        number: "0", title: "thank u, next", artist: "Ariana Grande", album: "thank u, next",
-        duration: "2:52", album-art: @image-url("../assets/Music Unknown.png")
+        number: "0",
+        title: "thank u, next",
+        artist: "Ariana Grande",
+        album: "thank u, next",
+        duration: "2:52",
+        album-art: @image-url("../assets/Music Unknown.png")
     };
 
     // ---- Data: Lyrics ----
@@ -374,20 +480,32 @@ export component MusicPage inherits HorizontalLayout {
 
         VerticalLayout {
             // ---- Header + Toolbar ----
+            // "Music" title
+                Rectangle {
+                width: 100%;
+                height: 90px;
+                background: #f84706;
+                HorizontalLayout {
+                    alignment: start;
+                    VerticalLayout {
+                        alignment: center;
+                        padding-left: 30px;
+                        Text {
+                            text: "Music";
+                            font-weight: 700;
+                            font-size: 28pt;
+                            letter-spacing: -1px;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+            }
+
             VerticalLayout {
                 padding-left: 25px;
                 padding-right: 20px;
                 padding-top: 22px;
                 spacing: 16px;
-
-                // "Music" title
-                Text {
-                    text: "Music";
-                    font-weight: 700;
-                    font-size: 28pt;
-                    letter-spacing: -1px;
-                    color: #FFFFFF;
-                }
 
                 // Toolbar: Play + Shuffle | Search + Artist filter
                 HorizontalLayout {
@@ -416,7 +534,9 @@ export component MusicPage inherits HorizontalLayout {
                                 colorize: #FF4500;
                             }
 
-                            play-touch := TouchArea { mouse-cursor: pointer; }
+                            play-touch := TouchArea {
+                                mouse-cursor: pointer;
+                            }
                         }
 
                         // Shuffle button
@@ -439,7 +559,9 @@ export component MusicPage inherits HorizontalLayout {
                                     colorize: rgba(255, 255, 255, 0.85);
                                 }
 
-                                shuffle-touch := TouchArea { mouse-cursor: pointer; }
+                                shuffle-touch := TouchArea {
+                                    mouse-cursor: pointer;
+                                }
                             }
                         }
                     }
@@ -469,7 +591,9 @@ export component MusicPage inherits HorizontalLayout {
                                     colorize: rgba(255, 255, 255, 0.85);
                                 }
 
-                                search-touch := TouchArea { mouse-cursor: pointer; }
+                                search-touch := TouchArea {
+                                    mouse-cursor: pointer;
+                                }
                             }
                         }
 
@@ -505,7 +629,9 @@ export component MusicPage inherits HorizontalLayout {
                                     }
                                 }
 
-                                artist-touch := TouchArea { mouse-cursor: pointer; }
+                                artist-touch := TouchArea {
+                                    mouse-cursor: pointer;
+                                }
                             }
                         }
                     }
@@ -533,7 +659,9 @@ export component MusicPage inherits HorizontalLayout {
                     }
 
                     // Spacer for album art
-                    Rectangle { width: 42px; }
+                    Rectangle {
+                        width: 42px;
+                    }
 
                     // Title
                     VerticalLayout {
@@ -577,7 +705,9 @@ export component MusicPage inherits HorizontalLayout {
                     }
 
                     // Spacer for more button
-                    Rectangle { width: 28px; }
+                    Rectangle {
+                        width: 28px;
+                    }
                 }
 
                 // Separator line
@@ -609,7 +739,7 @@ export component MusicPage inherits HorizontalLayout {
     // ======================================================
     // RIGHT SIDEBAR (when open)
     // ======================================================
-    if root.sidebar-open : Rectangle {
+    if root.sidebar-open: Rectangle {
         width: 320px;
         horizontal-stretch: 0;
         vertical-stretch: 1;
@@ -628,7 +758,6 @@ export component MusicPage inherits HorizontalLayout {
                 spacing: 4px;
                 height: 32px;
 
-                
                 // Toggle / Close button
                 Rectangle {
                     width: 32px;
@@ -651,10 +780,12 @@ export component MusicPage inherits HorizontalLayout {
                     }
                 }
 
-                Rectangle { horizontal-stretch: 1; } // spacer
+                Rectangle {
+                    horizontal-stretch: 1;
+                } // spacer
 
                 // Disc (Playing View Button)
-                if root.sidebar-view != 0 : Rectangle {
+                if root.sidebar-view != 0: Rectangle {
                     width: 36px;
                     height: 32px;
                     border-radius: 8px;
@@ -693,7 +824,9 @@ export component MusicPage inherits HorizontalLayout {
                         y: (parent.height - self.height) / 2;
                     }
 
-                    more-btn-touch := TouchArea { mouse-cursor: pointer; }
+                    more-btn-touch := TouchArea {
+                        mouse-cursor: pointer;
+                    }
                 }
 
                 // Fullscreen button
@@ -713,7 +846,9 @@ export component MusicPage inherits HorizontalLayout {
                         y: (parent.height - self.height) / 2;
                     }
 
-                    fs-touch := TouchArea { mouse-cursor: pointer; }
+                    fs-touch := TouchArea {
+                        mouse-cursor: pointer;
+                    }
                 }
             }
 
@@ -722,146 +857,147 @@ export component MusicPage inherits HorizontalLayout {
             // ==================================================
             // PLAYING VIEW (sidebar-view == 0)
             // ==================================================
-            if root.sidebar-view == 0 : Flickable {
+            if root.sidebar-view == 0: Flickable {
                 vertical-stretch: 1;
 
                 VerticalLayout {
                     spacing: 12px;
 
-                // Album art (large)
+                    // Album art (large)
                 Rectangle {
-                    height: 245px;
-                    border-radius: 12px;
-                    clip: true;
-                    background: #F0F0F0;
+                        height: 245px;
+                        border-radius: 12px;
+                        clip: true;
+                        background: #F0F0F0;
 
-                    Image {
-                        width: 100%;
-                        height: 100%;
-                        source: root.now-playing.album-art;
-                        image-fit: cover;
+                        Image {
+                            width: 100%;
+                            height: 100%;
+                            source: root.now-playing.album-art;
+                            image-fit: cover;
+                        }
                     }
-                }
 
-                // Song info
+                    // Song info
                 VerticalLayout {
-                    spacing: 3px;
-                    padding-left: 2px;
+                        spacing: 3px;
+                        padding-left: 2px;
 
-                    Text {
-                        text: root.now-playing.title;
-                        color: #1a1a1a;
-                        font-size: 15pt;
-                        font-weight: 700;
-                        letter-spacing: -0.5px;
+                        Text {
+                            text: root.now-playing.title;
+                            color: #1a1a1a;
+                            font-size: 15pt;
+                            font-weight: 700;
+                            letter-spacing: -0.5px;
+                        }
+
+                        Text {
+                            text: root.now-playing.artist;
+                            color: #6b6b6b;
+                            font-size: 10pt;
+                            font-weight: 500;
+                        }
                     }
 
-                    Text {
-                        text: root.now-playing.artist;
-                        color: #6b6b6b;
-                        font-size: 10pt;
-                        font-weight: 500;
-                    }
-                }
-
-                // Next in queue section
+                    // Next in queue section
                 VerticalLayout {
-                    spacing: 8px;
+                        spacing: 8px;
 
-                    Text {
-                        text: "Next in queue";
-                        color: #1a1a1a;
-                        font-size: 9.5pt;
-                        font-weight: 700;
-                    }
+                        Text {
+                            text: "Next in queue";
+                            color: #1a1a1a;
+                            font-size: 9.5pt;
+                            font-weight: 700;
+                        }
 
-                    // Next track card (peach/salmon bg)
+                        // Next track card (peach/salmon bg)
                     Rectangle {
-                        height: 58px;
-                        background: #FFD5B8;
-                        border-radius: 10px;
+                            height: 58px;
+                            background: #FFD5B8;
+                            border-radius: 10px;
 
-                        HorizontalLayout {
-                            padding-left: 10px;
-                            padding-right: 10px;
-                            spacing: 10px;
+                            HorizontalLayout {
+                                padding-left: 10px;
+                                padding-right: 10px;
+                                spacing: 10px;
 
-                            // Album art
+                                // Album art
                             VerticalLayout {
-                                alignment: center;
+                                    alignment: center;
 
-                                Rectangle {
-                                    width: 40px;
-                                    height: 40px;
-                                    border-radius: 7px;
-                                    clip: true;
+                                    Rectangle {
+                                        width: 40px;
+                                        height: 40px;
+                                        border-radius: 7px;
+                                        clip: true;
 
-                                    Image {
-                                        width: 100%;
-                                        height: 100%;
-                                        source: root.next-in-queue.album-art;
-                                        image-fit: cover;
+                                        Image {
+                                            width: 100%;
+                                            height: 100%;
+                                            source: root.next-in-queue.album-art;
+                                            image-fit: cover;
+                                        }
                                     }
                                 }
-                            }
 
-                            // Track info
+                                // Track info
                             VerticalLayout {
-                                alignment: center;
-                                horizontal-stretch: 1;
-                                spacing: 2px;
+                                    alignment: center;
+                                    horizontal-stretch: 1;
+                                    spacing: 2px;
 
-                                Text {
-                                    text: root.next-in-queue.title;
-                                    color: #1a1a1a;
-                                    font-size: 10pt;
-                                    font-weight: 600;
-                                    overflow: elide;
-                                }
-
-                                Text {
-                                    text: root.next-in-queue.artist;
-                                    color: #5a3a2a;
-                                    font-size: 8.5pt;
-                                    font-weight: 500;
-                                    overflow: elide;
-                                }
-                            }
-
-                            // More button
-                            VerticalLayout {
-                                alignment: center;
-
-                                Rectangle {
-                                    width: 26px;
-                                    height: 26px;
-                                    border-radius: 6px;
-                                    background: nq-more-touch.has-hover ? rgba(0, 0, 0, 0.06) : transparent;
-                                    animate background { duration: 120ms; }
-
-                                    Image {
-                                        width: 16px;
-                                        height: 16px;
-                                        source: @image-url("../assets/icons/More.svg");
-                                        image-fit: contain;
-                                        x: (parent.width - self.width) / 2;
-                                        y: (parent.height - self.height) / 2;
+                                    Text {
+                                        text: root.next-in-queue.title;
+                                        color: #1a1a1a;
+                                        font-size: 10pt;
+                                        font-weight: 600;
+                                        overflow: elide;
                                     }
 
-                                    nq-more-touch := TouchArea { mouse-cursor: pointer; }
+                                    Text {
+                                        text: root.next-in-queue.artist;
+                                        color: #5a3a2a;
+                                        font-size: 8.5pt;
+                                        font-weight: 500;
+                                        overflow: elide;
+                                    }
+                                }
+
+                                // More button
+                            VerticalLayout {
+                                    alignment: center;
+
+                                    Rectangle {
+                                        width: 26px;
+                                        height: 26px;
+                                        border-radius: 6px;
+                                        background: nq-more-touch.has-hover ? rgba(0, 0, 0, 0.06) : transparent;
+                                        animate background { duration: 120ms; }
+
+                                        Image {
+                                            width: 16px;
+                                            height: 16px;
+                                            source: @image-url("../assets/icons/More.svg");
+                                            image-fit: contain;
+                                            x: (parent.width - self.width) / 2;
+                                            y: (parent.height - self.height) / 2;
+                                        }
+
+                                        nq-more-touch := TouchArea {
+                                            mouse-cursor: pointer;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
-
                 }
             }
 
             // ==================================================
             // QUEUE VIEW (sidebar-view == 1)
             // ==================================================
-            if root.sidebar-view == 1 : VerticalLayout {
+            if root.sidebar-view == 1: VerticalLayout {
                 vertical-stretch: 1;
                 spacing: 10px;
 
@@ -887,7 +1023,9 @@ export component MusicPage inherits HorizontalLayout {
                             vertical-alignment: center;
                         }
 
-                        TouchArea { mouse-cursor: pointer; }
+                        TouchArea {
+                            mouse-cursor: pointer;
+                        }
                     }
 
                     // History tab
@@ -901,7 +1039,9 @@ export component MusicPage inherits HorizontalLayout {
                             font-weight: 600;
                         }
 
-                        TouchArea { mouse-cursor: pointer; }
+                        TouchArea {
+                            mouse-cursor: pointer;
+                        }
                     }
                 }
 
@@ -930,7 +1070,9 @@ export component MusicPage inherits HorizontalLayout {
                             vertical-alignment: center;
                         }
 
-                        TouchArea { mouse-cursor: pointer; }
+                        TouchArea {
+                            mouse-cursor: pointer;
+                        }
                     }
                 }
 
@@ -951,10 +1093,13 @@ export component MusicPage inherits HorizontalLayout {
             // ==================================================
             // LYRICS VIEW (sidebar-view == 2)
             // ==================================================
-            if root.sidebar-view == 2 : Flickable {
+            if root.sidebar-view == 2: Flickable {
                 vertical-stretch: 1;
                 viewport-y: root.active-lyric-index > 3 ? - (root.active-lyric-index - 3) * 44px : 0;
-                animate viewport-y { duration: 300ms; easing: ease-out; }
+                animate viewport-y {
+                    duration: 300ms;
+                    easing: ease-out;
+                }
 
                 VerticalLayout {
                     padding-top: 12px;
@@ -963,10 +1108,10 @@ export component MusicPage inherits HorizontalLayout {
                     padding-right: 8px;
                     // spacing: 20px;
 
-                    for line[idx] in root.lyrics-lines : Rectangle {
+                    for line[idx] in root.lyrics-lines: Rectangle {
                         border-radius: 8px;
                         animate background { duration: 150ms; }
-                        
+
                         VerticalLayout {
                             padding-left: 12px;
                             padding-right: 12px;
@@ -998,7 +1143,7 @@ export component MusicPage inherits HorizontalLayout {
     // ======================================================
     // TOGGLE BUTTON (when sidebar is closed)
     // ======================================================
-    if !root.sidebar-open : VerticalLayout {
+    if !root.sidebar-open: VerticalLayout {
         alignment: start;
         horizontal-stretch: 0;
 
