@@ -300,8 +300,68 @@ export component MusicPage inherits HorizontalLayout {
     };
 
     // ---- Data: Lyrics ----
-    in property <string> lyrics-text:
-        "끌어당겨 You're my crush!\n초능력처럼\n거대한 자석이 된 것만 같아 My heart\n네 모든 게 내 맘에 달라붙어버려 Boy\nWe're magnetized 인정할게\nThis time I want\n\nYou, you, you, you, like it's magnetic\nU, u, u, u, u, u, u, super 이끌림\nYou, you, you, you, like it's magnetic\nU, u, u, u, u, u, u, super 이끌림\n\nBae, bae, bae, bae, bae, bae,\nbae, bae, bae\nDash-da-da, dash-da-da, dash-da\nLike it's magnetic";
+    in-out property <int> active-lyric-index: 14;
+    in property <[string]> lyrics-lines: [
+        "Baby",
+        "I’m just trying to play it cool",
+        "But I just can’t hide that",
+        "I want you",
+        "Wait a minute 이게 뭐지",
+        "내 심장이 Lub-dub",
+        "자꾸만 뛰어",
+        "저 멀리서도 Oh my gosh!",
+        "끌어당겨 You're my crush!",
+        "초능력처럼",
+        "거대한 자석이 된 것만 같아 My heart",
+        "네 모든 게 내 맘에 달라붙어버려 Boy",
+        "We’re magnetized 인정할게",
+        "This time I want",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "Bae, bae, bae, bae, bae, bae, bae, bae, bae",
+        "Dash-da-da, dash-da-da, dash-da",
+        "Like it’s magnetic",
+        "Bae, bae, bae, bae, bae, bae, bae, bae, bae",
+        "Dash-da-da, dash-da-da",
+        "Baby, don't say no",
+        "정반대 같아 Our type",
+        "넌 J 난 완전 P",
+        "S와 N 극이지만",
+        "그래서 끌리지",
+        "내가 만들래 Green light",
+        "여잔 배짱이지",
+        "So let's go, let's go",
+        "Let's go, let's go",
+        "숨기고 싶지 않아 자석 같은 My heart",
+        "내 맘의 끌림대로 너를 향해 갈게 Boy",
+        "We’re magnetized 인정할게",
+        "This time I want",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "No push and pull",
+        "전속력으로 너에게 갈게 (In a rush, in a rush)",
+        "Our chemistry",
+        "난 과몰입해 지금 순간에 (Baby, you're my crush, you're my crush)",
+        "No push and pull",
+        "네게 집중 후회는 안 할래 (Gonna dash, gonna dash)",
+        "Never holding back",
+        "직진해 Yeah",
+        "This time I want",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "You, you, you, you, like it's magnetic",
+        "U, u, u, u, u, u, u, u, super 이끌림",
+        "Bae, bae, bae, bae, bae, bae, bae, bae, bae",
+        "Dash-da-da, dash-da-da, dash-da",
+        "Like it’s magnetic",
+        "Bae, bae, bae, bae, bae, bae, bae, bae, bae",
+        "Dash-da-da, dash-da-da",
+        "Baby, don't say no"
+    ];
 
     // ======================================================
     // MAIN CONTENT AREA (gradient background)
@@ -550,7 +610,7 @@ export component MusicPage inherits HorizontalLayout {
     // RIGHT SIDEBAR (when open)
     // ======================================================
     if root.sidebar-open : Rectangle {
-        width: 280px;
+        width: 320px;
         horizontal-stretch: 0;
         vertical-stretch: 1;
         background: #FFFFFF;
@@ -893,17 +953,42 @@ export component MusicPage inherits HorizontalLayout {
             // ==================================================
             if root.sidebar-view == 2 : Flickable {
                 vertical-stretch: 1;
+                viewport-y: root.active-lyric-index > 3 ? - (root.active-lyric-index - 3) * 44px : 0;
+                animate viewport-y { duration: 300ms; easing: ease-out; }
 
                 VerticalLayout {
-                    padding-top: 4px;
-                    padding-bottom: 12px;
+                    padding-top: 12px;
+                    padding-bottom: 32px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    // spacing: 20px;
 
-                    Text {
-                        text: root.lyrics-text;
-                        color: #1a1a1a;
-                        font-size: 10.5pt;
-                        font-weight: 500;
-                        wrap: word-wrap;
+                    for line[idx] in root.lyrics-lines : Rectangle {
+                        border-radius: 8px;
+                        animate background { duration: 150ms; }
+                        
+                        VerticalLayout {
+                            padding-left: 12px;
+                            padding-right: 12px;
+                            padding-top: 20px;
+                            padding-bottom: 20px;
+
+                            Text {
+                                text: line;
+                                color: idx == root.active-lyric-index || ta.has-hover ? #1a1a1a : #a0a0a0;
+                                font-size: idx == root.active-lyric-index ? 15pt : 13pt;
+                                font-weight: idx == root.active-lyric-index ? 800 : 500;
+                                wrap: word-wrap;
+                                animate color { duration: 250ms; }
+                            }
+                        }
+
+                        ta := TouchArea {
+                            width: 100%;
+                            height: 100%;
+                            mouse-cursor: pointer;
+                            clicked => { root.active-lyric-index = idx; }
+                        }
                     }
                 }
             }
