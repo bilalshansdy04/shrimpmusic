@@ -13,6 +13,9 @@ export component AppWindow inherits Window {
     width: 920px;
     height: 600px;
     background: #FFFFFF;
+    
+    property <bool> music-sidebar-open: false;
+    property <int> music-sidebar-view: 0;
 
     in-out property <[SongData]> recent-songs: [
         { title: "Unknown Music", artist: "Unknown Artist", album-art: @image-url("./assets/Music Unknown.png") },
@@ -48,13 +51,31 @@ export component AppWindow inherits Window {
             if (navbar.active-tab == 2) : home-page := HomePage {
                 recent-songs: root.recent-songs;
             }
-            if (navbar.active-tab == 3) : MusicPage { }
+            if (navbar.active-tab == 3) : MusicPage {
+                sidebar-open <=> root.music-sidebar-open;
+                sidebar-view <=> root.music-sidebar-view;
+            }
             if (navbar.active-tab != 2 && navbar.active-tab != 3) : NotFoundPage {
                 go-home => { navbar.active-tab = 2; }
             }
         }
 
         // Media Player (bottom)
-        MediaPlayer { }
+        MediaPlayer {
+            queue-clicked => {
+                if (navbar.active-tab != 3) {
+                    navbar.active-tab = 3;
+                }
+                root.music-sidebar-open = true;
+                root.music-sidebar-view = 1;
+            }
+            lyrics-clicked => {
+                if (navbar.active-tab != 3) {
+                    navbar.active-tab = 3;
+                }
+                root.music-sidebar-open = true;
+                root.music-sidebar-view = 2;
+            }
+        }
     }
 }

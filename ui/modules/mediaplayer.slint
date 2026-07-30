@@ -32,6 +32,9 @@ component PlayerButton inherits Rectangle {
 export component MediaPlayer inherits VerticalLayout {
     alignment: end;
     vertical-stretch: 0;
+    
+    callback queue-clicked();
+    callback lyrics-clicked();
 
     Rectangle {
         height: 130px;
@@ -274,6 +277,7 @@ export component MediaPlayer inherits VerticalLayout {
                             icon: @image-url("../assets/icons/Lyrics.svg");
                             icon-width: 22px;
                             icon-height: 22px;
+                            clicked => { root.lyrics-clicked(); }
                         }
 
                         // Volume Button
@@ -332,6 +336,7 @@ export component MediaPlayer inherits VerticalLayout {
                             icon: @image-url("../assets/icons/Queue.svg");
                             icon-width: 22px;
                             icon-height: 22px;
+                            clicked => { root.queue-clicked(); }
                         }
                         // More Option Button
                         PlayerButton {
