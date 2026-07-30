@@ -31,9 +31,9 @@ component PlayerButton inherits Rectangle {
 // MediaPlayer — Card media player lengkap (progress bar, info lagu, playback controls, volume)
 export component MediaPlayer inherits VerticalLayout {
     alignment: end;
+    vertical-stretch: 0;
 
     Rectangle {
-        width: 890px;
         height: 130px;
         background: #FFFFFF;
         border-radius: 15px;
@@ -110,15 +110,13 @@ export component MediaPlayer inherits VerticalLayout {
                 }
             }
 
-            // Playback Controls & Info (Absolute positioning)
-            Rectangle {
+            // Playback Controls & Info
+            HorizontalLayout {
                 height: 70px;
+                spacing: 12px;
                 // 1. Music Container (Album Art, Title, Artist, Album)
                 HorizontalLayout {
-                    x: 0px;
-                    y: 0px;
-                    width: 280px;
-                    height: parent.height;
+                    horizontal-stretch: 1;
                     spacing: 14px;
                     alignment: start;
                     // Album Art
@@ -223,10 +221,8 @@ export component MediaPlayer inherits VerticalLayout {
 
                 // 2. Playback Container
                 VerticalLayout {
+                    horizontal-stretch: 0;
                     width: 240px;
-                    height: parent.height;
-                    x: (parent.width - self.width) / 2;
-                    y: 0px;
                     alignment: center;
 
                     HorizontalLayout {
@@ -267,10 +263,7 @@ export component MediaPlayer inherits VerticalLayout {
 
                 // 3. Action Buttons
                 VerticalLayout {
-                    width: 250px;
-                    height: parent.height;
-                    x: parent.width - self.width;
-                    y: 0px;
+                    horizontal-stretch: 1;
                     alignment: center;
 
                     HorizontalLayout {

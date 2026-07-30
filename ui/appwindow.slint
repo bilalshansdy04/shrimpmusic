@@ -2,6 +2,7 @@ import "./assets/fonts/Montserrat-VariableFont_wght.ttf";
 import { MediaPlayer } from "./modules/mediaplayer.slint";
 import { Navbar } from "./modules/navbar.slint";
 import { HomePage, SongData } from "./pages/home.slint";
+import { MusicPage } from "./pages/music.slint";
 
 import { NotFoundPage } from "./pages/not_found.slint";
 
@@ -47,7 +48,8 @@ export component AppWindow inherits Window {
             if (navbar.active-tab == 2) : home-page := HomePage {
                 recent-songs: root.recent-songs;
             }
-            if (navbar.active-tab != 2) : NotFoundPage {
+            if (navbar.active-tab == 3) : MusicPage { }
+            if (navbar.active-tab != 2 && navbar.active-tab != 3) : NotFoundPage {
                 go-home => { navbar.active-tab = 2; }
             }
         }

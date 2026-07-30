@@ -24,11 +24,11 @@ component NavButton inherits HorizontalLayout {
     }
 }
 export component Navbar inherits VerticalLayout {
-    alignment: end;
+    horizontal-stretch: 0;
     in-out property <int> active-tab: 2;
     Rectangle {
                 width: 60px;
-                height: 430px;
+                vertical-stretch: 1;
                 background: #FFFFFF;
                 border-radius: 15px;
                 border-width: 2px;
