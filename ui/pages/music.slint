@@ -132,6 +132,7 @@ component SongRow inherits Rectangle {
                     width: 18px;
                     height: 18px;
                     source: @image-url("../assets/icons/More.svg");
+                    image-fit: contain;
                     x: (parent.width - self.width) / 2;
                     y: (parent.height - self.height) / 2;
                     colorize: rgba(255, 255, 255, 0.55);
@@ -241,6 +242,7 @@ component QueueTrackItem inherits Rectangle {
                     width: 16px;
                     height: 16px;
                     source: @image-url("../assets/icons/More.svg");
+                    image-fit: contain;
                     x: (parent.width - self.width) / 2;
                     y: (parent.height - self.height) / 2;
                 }
@@ -504,10 +506,12 @@ export component MusicPage inherits HorizontalLayout {
                         alignment: center;
                         width: 36px;
 
-                        Text {
-                            text: "◷";
-                            color: rgba(255, 255, 255, 0.4);
-                            font-size: 11pt;
+                        Image {
+                            source: @image-url("../assets/icons/schedule.svg");
+                            image-fit: contain;
+                            width: 16px;
+                            height: 16px;
+                            colorize: rgba(255, 255, 255, 0.4);
                             horizontal-alignment: center;
                         }
                     }
@@ -779,6 +783,7 @@ export component MusicPage inherits HorizontalLayout {
                                         width: 16px;
                                         height: 16px;
                                         source: @image-url("../assets/icons/More.svg");
+                                        image-fit: contain;
                                         x: (parent.width - self.width) / 2;
                                         y: (parent.height - self.height) / 2;
                                     }
